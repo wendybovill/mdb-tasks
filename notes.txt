@@ -1,0 +1,127 @@
+Connect to Mongo CLI on a IDE
+navigate to your MongoDB Clusters Sandbox
+click "Connect" button
+select "Connect with the mongo shell"
+select "I do not have the mongo shell installed"
+choose option: "Run your connection string in your command line"
+mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --username <USERNAME>
+replace all <angle-bracket> keys with your own data
+enter password *(will not echo ******** on screen)
+Clear screen in Mongo Shell:
+
+cls
+Show all database collections:
+
+show collections
+Assign collection to variable 'coll':
+
+coll = db.collection_name
+
+
+FIND / filter / sort
+
+Find all documents in collection:
+
+coll.find();
+Find all documents with gender == "f":
+
+coll.find({gender: "f"});
+Find all documents with gender == "f" AND nationality == "british":
+
+coll.find({gender: "f", nationality: "british"});
+Find all documents with gender == "f" AND nationality == "american" OR "irish":
+
+coll.find({gender: "f", $or: [{nationality: "american"}, {nationality: "irish"}]});
+Find all documents with gender == "f" AND nationality == "american" OR "irish", then sort by nationality (ascending):
+
+coll.find({gender: "f", $or: [{nationality: "american"}, {nationality: "irish"}]}).sort({nationality: 1});
+Find all documents with gender == "f" AND nationality == "american" OR "irish", then sort by nationality (descending):
+
+coll.find({gender: "f", $or: [{nationality: "american"}, {nationality: "irish"}]}).sort({nationality: -1});
+# 1 = ascending order -1 = descending order
+
+
+INSERT / one / multiple
+
+# Insert one record
+
+coll.insert_one({
+    first: "john",
+    last: "lennon",
+    dob: "09/10/1940",
+    gender: "m",
+    hair_color: "brown",
+    occupation: "beatle",
+    nationality: "british"
+});
+
+
+
+coll.insert({
+    first: "eve",
+    last: "ryan",
+    dob: "19/09/1992",
+    gender: "f",
+    hair_color: "pink",
+    occupation: "developer",
+    nationality: "irish"
+});
+coll.insert({
+    first: "martha",
+    last: "fenton",
+    dob: "15/05/1974",
+    gender: "f",
+    hair_color: "brown",
+    occupation: "manager",
+    nationality: "irish"
+});
+
+
+
+UPDATE
+
+Update the first matching record with nationality == "irish" to have hair_color == "blue":
+
+# now update_one(args)
+coll.update({nationality: "irish"}, {$set: {hair_color: "blue"}});
+Update all matching records with nationality == "irish" to have hair_color == "purple":
+
+# multi record update:
+coll.update({nationality: "irish"}, {$set: {hair_color: "purple"}},{multi:true});
+
+
+
+DELETE RECORD / records
+
+Delete a record matching: First: "kate", Last: "bush"
+
+coll.remove({first: "kate", last: "bush"});
+Delete all records from the collection:
+
+coll.remove();
+
+error at video 10:51 location. The remove() method does not exist. Now coll.delete_one() and coll.delete_many()
+
+
+
+
+
+
+Python integration:
+
+In CLI type: pip3 install dnspython
+
+Then type: pip3 install pymongo
+
+Then go to mongodb page click overview from cluster, click connect application, select python for the driver and then the correct version.
+
+Then create env.py, add import os, add other data to connect to db. Get connection string from database / cluster connect, replace password with password, add db name to end of .net/dbnamehere
+
+Then create mongo.py, import os, import pymongo, add environ variables: use these video is wrong (location 4:05):
+import os
+import pymongo
+import pathlib
+from os import path
+if os.path.exists("env.py"):
+    import env
+
