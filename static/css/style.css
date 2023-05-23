@@ -12,3 +12,34 @@ div.flashes {
     padding-top:0;
     margin-top:0;
 }
+
+.datepicker-date-display {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 auto;
+    -ms-flex: 1 auto;
+    flex: 1 auto;
+    background-color: #0073ba;
+    color: #fff;
+    padding: 20px 22px;
+    font-weight: 500;
+}
+
+.datepicker-table td.is-selected {
+    background-color: #0073ba;
+    color: #fff;
+}
+
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+    color: #0073ba;
+    padding: 0 1rem;
+}
+
+.datepicker-table td.is-today, .datepicker-day-button.is-today {
+    color: #0024d6;
+    font-weight: 900;
+    background-color: rgba(123, 123, 123, 0.25);
+}
+
+.datepicker-day-button:focus {
+    background-color: rgba(123, 123, 123, 0.25);
+}
