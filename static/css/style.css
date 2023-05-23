@@ -43,3 +43,13 @@ div.flashes {
 .datepicker-day-button:focus {
     background-color: rgba(123, 123, 123, 0.25);
 }
+
+.btn-small {
+    margin: 5px;
+}
+
+.collapsible-header .col strong {
+    margin:5px;
+    line-height: 42px;
+    font-size: 20px;
+}
