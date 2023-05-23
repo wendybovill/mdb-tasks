@@ -1,19 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
     <h2 class="">This is header 2 class</h2>
-
-    <ul class="collapsible">
-        {% for task in tasks %}
-        <li>
-          <div class="collapsible-header white-text light-blue darken-4 text-shadow"><i class="fas fa-caret-down"></i>{{ task.task_name + "\n"}}</div>
-          <div class="collapsible-body white"><span>{{ task.task_description }}</span></div>
-        </li>
-        {% endfor %}
-      </ul>
-      {% for task in tasks %}
-      {{ task.task_name + "\n"}}<br>
-      {{ task.task_description }}<br>
-      {{ task.is_urgent }}<br>
-      {{ task.due_date }}<br>
-  {% endfor %}
+    <!-- {% for task in tasks %}
+        {{ task.task_name + "\n"}}<br>
+        {{ task.category_name}}<br>
+        {{ task.task_description }}<br>
+        {{ task.is_urgent }}<br>
+        {{ task.due_date }}
+    {% endfor %} -->
+    <div class="row">
+        <ul class="collapsible">
+            {% for task in tasks %}
+            <li>
+                <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+                    <i class="fas fa-caret-down"></i>
+                    <strong>{{ task.task_name + "\n"}}</strong>  :  {{ task.due_date }}
+                    {% if task.is_urgent =="on" %}
+                    <i class="fas fa-exclamation-circle light-blue-text text-lighten-2 tooltipped" data-position="right" data-tooltip="URGENT!"></i>
+                    {% endif %}
+                </div>
+                <div class="collapsible-body white">
+                    <strong>{{ task.category_name}}</strong>
+                    <p>{{ task.task_description }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
