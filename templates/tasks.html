@@ -1,10 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
     <h2 class="">This is header 2 class</h2>
-    {% for task in tasks %}
-        {{ task.task_name + "\n"}}<br>
-        {{ task.task_description }}<br>
-        {{ task.is_urgent }}<br>
-        {{ task.due_date }}<br>
-    {% endfor %}
+
+    <ul class="collapsible">
+        {% for task in tasks %}
+        <li>
+          <div class="collapsible-header white-text light-blue darken-4 text-shadow"><i class="fas fa-caret-down"></i>{{ task.task_name + "\n"}}</div>
+          <div class="collapsible-body white"><span>{{ task.task_description }}</span></div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% for task in tasks %}
+      {{ task.task_name + "\n"}}<br>
+      {{ task.task_description }}<br>
+      {{ task.is_urgent }}<br>
+      {{ task.due_date }}<br>
+  {% endfor %}
 {% endblock %}
