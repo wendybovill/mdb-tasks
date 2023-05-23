@@ -1,40 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 class="center-align">Profile</h2>
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register')}}">
-          <div class="card-panel">
-            <!-- Username -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-                    <input id="username" name="username" type="text" class="validate" minlength="3" maxlength="15" pattern="^[a-zA-z0-9]{3,15}$" required>
-                    <label for="username" >Username</label>
-                </div>
-            </div>
-            <!-- Password -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                    <input id="password" name="password" type="password" class="validate" minlength="5" maxlength="15" pattern="^[a-zA-z0-9]{5,15}$" required>
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <!-- Submit -->
-            <div class="row">
-                <button type="submit" class="col s12 btn-large light-blue darken-4 test-shadow">
-                    Register <i class="fas fa-sign-in-alt"></i>
-                </button>
-            </div>
-          </div>
-        </form>
-        <div class="row">
-            <div class="col s12">
-                <p class="center-align">
-                    Already registerd? <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log in</a>
-                </p>
-            </div>
-        </div>
 
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="card-panel">
+            <h3 class="center-align light-blue-text text-darken-4">{{ username }}'s Profile</h3>
+          </div>
+        </div>
       </div>    
 {% endblock %}
