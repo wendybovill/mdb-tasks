@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h3 class="light-blue-text text-darken-4 center-align">Add Task</h3>
+<h3 class="light-blue-text text-darken-4 center-align">Edit Task</h3>
 
 <div class="row white">
-    <form class="col s12" method="POST" action="{{ url_for('add_task') }}">
+    <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
         <!-- Category Selector -->
         <div class="row white">
             <div class="input-field col s12">
@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col s12 center-align">
                 <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                    Add Task <i class="fas fa-plus-square right"></i>
+                    edit Task <i class="fas fa-plus-square right"></i>
                 </button>
             </div>
         </div>
