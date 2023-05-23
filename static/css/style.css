@@ -24,7 +24,7 @@ div.flashes {
     font-weight: 500;
 }
 
-.datepicker-table td.is-selected {
+.datepicker-table td.is-selected, button, .btn:submit {
     background-color: #0073ba;
     color: #fff;
 }
