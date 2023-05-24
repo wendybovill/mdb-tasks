@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% block content %}
-<h3 class="light-blue-text text-darken-4 center-align">All Tasks</h3>
+
 <!-- {% for task in tasks %}
         {{ task.task_name + "\n"}}<br>
         {{ task.category_name}}<br>
@@ -8,15 +7,27 @@
         {{ task.is_urgent }}<br>
         {{ task.due_date }}
     {% endfor %} -->
+    {% block content %}
+
+    <!-- Check if a user is logged then show first part -->
+{% if session.user|lower %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">All Tasks</h3>
+
         <ul class="collapsible">
             {% for task in tasks %}
+
             <li>
                 <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+                    <!-- if logged in user is not the same as the task creator then hide the edit button -->
+                    {% if session.user|lower == task.created_by|lower %}
                     <div class="col s3">
                         <i class="fas fa-caret-down"></i>
-                        <a href="" class="btn-small green accent-4">Done</a>
+                        <a href="{{ url_for('delete_task', task_id=task._id)}}" class="btn-small red accent-4">Delete</a>
                         <a href="{{ url_for('edit_task', task_id=task._id)}}" class="btn-small light-blue lighten-1">Edit</a>
+                        <a href="{{ url_for('done_task', task_id=task._id)}}" class="btn-small green accent-4">Done</a>
                     </div>
+                    {% endif %}
                     <div class="col s9">
                         <strong>{{ task.task_name }}</strong> : {{ task.due_date }}
                         {% if task.is_urgent == "on" %}
@@ -32,5 +43,21 @@
                 </div>
             </li>
             {% endfor %}
+
         </ul>
+<!-- if user is not logged in show option to register or log in -->
+{% else %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Task View</h3>
+
+    <div class="row">
+          <div class="card-panel">
+ Welcome to Task Manager.
+ 
+ Please <a href="{{ url_for('register')}}" class="light-blue-text text-darken-4">Sign Up</a> or <a href="{{ url_for('login')}}" class="light-blue-text text-darken-4">Log In</a> to add, view and edit your tasks.
+          </div>
+      </div> 
+
+{% endif %}
+
 {% endblock %}

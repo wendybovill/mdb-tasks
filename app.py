@@ -123,12 +123,55 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 
-@app.route("/edit_task/<task_id>", methods=["GET","POST"])
+@app.route("/edit_task/<task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            # if you going to store a list then use request.form.getlist("task_description")
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.update_one({"_id": ObjectId(task_id)}, {"$set": submit})
+        flash("Task Successfully Updated")
     # ObjectId is bson
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_task.html", task=task, categories=categories)
+
+
+@app.route("/delete_task/<task_id>", methods=["GET", "POST"])
+def delete_task(task_id):
+    mongo.db.tasks.delete_one({"_id": ObjectId(task_id)})
+    flash("Task Successfully Deleted")
+    return redirect(url_for('get_tasks'))
+    
+
+@app.route("/done_task/<task_id>", methods=["GET", "POST"])
+def done_task(task_id):
+    flash("Have you completed this task?")
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        completed = True
+        done = {
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            # if you going to store a list then use request.form.getlist("task_description")
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.delete_one({"_id": ObjectId(task_id)}, {"$set": done})
+        flash("The task has marked completed")
+    # ObjectId is bson
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("tasks.html", task=task, categories=categories)
 
 
 if __name__ == ("__main__"):
