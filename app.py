@@ -16,7 +16,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
-
+                                                            
 
 @app.route("/")
 @app.route("/get_tasks")
@@ -24,6 +24,13 @@ def get_tasks():
     # adding list before prevents duplicate list on page being interpreted
     # converts it into a list
     tasks = list(mongo.db.tasks.find())
+    return render_template("tasks.html", tasks=tasks)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get('query')
+    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
     return render_template("tasks.html", tasks=tasks)
 
 
