@@ -30,7 +30,6 @@
                 </div>
             </form>
         </div>
-    {% if noresult == False %}
         <ul class="collapsible">
             {% for task in tasks %}
 
@@ -61,7 +60,6 @@
             </li>
             {% endfor %}
         </ul>
-    {% endif %}
 
 <!-- if user is not logged in show option to register or log in -->
 {% else %}
